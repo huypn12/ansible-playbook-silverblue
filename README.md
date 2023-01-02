@@ -10,7 +10,7 @@ To enable LUKS2 support, press `e` on boot screen, add the following boot option
 ```
     YAST_LUKS2_AVAILABE=1
 ```
-As LUKS2 support on GRUB is at its early phase (), to encrypt `/boot` with LUKS2 is not a reliable option.
+As LUKS2 support on GRUB is [at its early phase](https://wiki.archlinux.org/title/GRUB#LUKS2), to encrypt `/boot` with LUKS2 is not a reliable option.
 To ease my paranoid brain, I use the following setup
 ```
     /dev/xx1    /boot/efi   512MiB  FAT     unencrypted
