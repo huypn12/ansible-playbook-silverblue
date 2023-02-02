@@ -1,0 +1,22 @@
+# antigen
+source $HOME/.local/bin/antigen.zsh
+
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-history-substring-search
+
+antigen apply
+
+# history
+export HISTFILE="$HOME/.zsh_history"
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+
+setopt    extended_history      # Record timestamp of command in HISTFILE
+setopt    appendhistory         # Append history to the history file (no overwriting)
+setopt    sharehistory          # Share history across terminals
+setopt    incappendhistory      # Immediately append to the history file, not just when a term is killed
+
+# starship prompt
+eval "$(starship init zsh)"
