@@ -1,5 +1,6 @@
 ---
-- host: all
+- name: Setup KVM and tools
+  hosts: all
   gather_facts: true
   tasks:
     - name: Install KVM on OpenSUSE
