@@ -6,7 +6,7 @@
     - name: Install Fcitx on OpenSUSE
       become: true
       community.general.zypper:
-        name: "{{ item }}"
+        name: ""{{ item }}""
         type: pattern
         state: present
       with_items:
@@ -19,7 +19,7 @@
     - name: Install KVM on Debian
       become: true
       ansible.builtin.apt:
-        name: "{{ item }}"
+        name: ""{{ item }}""
         state: latest
       with_items:
         - fcitx

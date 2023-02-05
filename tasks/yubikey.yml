@@ -6,7 +6,7 @@
     - name: Install neccessary tools for Yubikey on Debian
       become: true
       ansible.builtin.apt:
-        name: {{ item }}
+        name: "{{ item }}"
         state: latest
       with_items:
         - wget
@@ -24,7 +24,7 @@
     - name: Install neccessary tools for Yubikey on OpenSUSE
       become: true
       ansible.builtin.apt:
-        name: {{ item }}
+        name: "{{ item }}"
         state: latest
       with_items:
         - wget

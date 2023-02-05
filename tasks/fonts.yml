@@ -6,7 +6,7 @@
     - name: Install Noto fonts on OpenSUSE Leap
       become: true
       community.general.zypper:
-        name: {{ item }} 
+        name: "{{ item }}" 
         type: pattern
         state: present
       with_items:
@@ -17,7 +17,7 @@
     - name: Install Noto fonts on OpenSUSE Leap
       become: true
       community.general.zypper:
-        name: {{ item }} 
+        name: "{{ item }}" 
         type: pattern
         state: present
       with_items:
@@ -28,7 +28,7 @@
     - name: Install Noto fonts on Debian
       become: true
       ansible.builtin.apt:
-        name: {{ item }}
+        name: "{{ item }}"
         state: latest
       with_items:
         - fonts-noto
