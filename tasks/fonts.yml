@@ -11,6 +11,7 @@
         state: present
       with_items:
         - "noto-fonts google-noto-{sans,serif}-{tc,sc,hk,jp,kr}-fonts-full"
+        - google-croscore-fonts
       when: ansible_os_family == "Suse" and ansible_distribution == "openSUSE Tumbleweed"
 
     - name: Install Noto fonts on OpenSUSE Leap
@@ -21,6 +22,7 @@
         state: present
       with_items:
         - "noto-*"
+        - google-croscore-fonts
       when: ansible_os_family == "Suse" and ansible_distribution = "openSUSE Leap"
 
     - name: Install Noto fonts on Debian
