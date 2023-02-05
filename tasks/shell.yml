@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: true
   tasks:
-    - name: Install zshs on OpenSUSE
+    - name: Install zsh on OpenSUSE
       become: true
       community.general.zypper:
         name: {{ item }} 
@@ -21,5 +21,3 @@
       with_items:
         - zsh
       when: ansible_os_family == "Debian"
-
-    - name: Install antigen
