@@ -1,0 +1,31 @@
+---
+- name: Setup KVM and tools
+  hosts: all
+  gather_facts: true
+  become: true
+  tasks:
+    - name: Install KVM
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - qemu-kvm
+        - libvirt-clients
+        - libvirt-daemon-system 
+        - libvirt-daemon
+        - bridge-utils
+        - virtinst
+        - virt-manager
+    
+    - name: Install podman
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - podman
+
+    - name: Enable libvirtd
+      ansible.builtin.systemd:
+        name: libvirtd
+        state: started
+        enabled: true
