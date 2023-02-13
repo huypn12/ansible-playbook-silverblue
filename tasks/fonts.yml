@@ -1,32 +1,20 @@
 ---
-- name: Install necessary fonts
+- name: Setup fcitx
   hosts: all
   gather_facts: true
+  become: true
   tasks:
-    - name: Install Noto fonts on OpenSUSE Leap
-      become: true
-      community.general.zypper:
-        name: "{{ item }}" 
-        type: pattern
-        state: present
+    - name: Install Fcitx on Debian
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: latest
       with_items:
-        - "noto-fonts google-noto-{sans,serif}-{tc,sc,hk,jp,kr}-fonts-full"
-        - google-croscore-fonts
-      when: ansible_os_family == "Suse" and ansible_distribution == "openSUSE Tumbleweed"
-
-    - name: Install Noto fonts on OpenSUSE Leap
-      become: true
-      community.general.zypper:
-        name: "{{ item }}" 
-        type: pattern
-        state: present
-      with_items:
-        - "noto-*"
-        - google-croscore-fonts
-      when: ansible_os_family == "Suse" and ansible_distribution = "openSUSE Leap"
+        - fcitx
+        - fcitx-unikey
+        - fcitx-rime
+        - fcitx-mozc
 
     - name: Install Noto fonts on Debian
-      become: true
       ansible.builtin.apt:
         name: "{{ item }}"
         state: latest
