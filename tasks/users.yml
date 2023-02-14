@@ -1,0 +1,13 @@
+---
+- name: Add user "{{ item }}" of groups "{{ groups }}"
+  ansible.builtin.user:
+    name: "{{ item }}"
+    groups: "{{ groups }}"
+    shell: /bin/zsh
+    append: yes
+
+- name: Add authorized key
+  ansible.builtin.authorized_key:
+    user: "{{ item }}"
+    state: present
+    key: "{{ lookup('file', 'authorized_keys/' + item) }}"
