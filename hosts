@@ -1,0 +1,6 @@
+mydc:
+    desktop:
+        ansible_host: 192.168.1.101
+
+    laptop:
+        ansible_host: 192.168.1.102
