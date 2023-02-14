@@ -2,22 +2,18 @@
 - name: Setup Zsh
   hosts: all
   gather_facts: true
+  become: true
   tasks:
-    - name: Install zsh on OpenSUSE
-      become: true
-      community.general.zypper:
-        name: "{{ item }}" 
-        type: pattern
-        state: present
-      with_items:
-        - zsh
-      when: ansible_os_family == "Suse"
-
     - name: Install zsh on Debian
-      become: true
       ansible.builtin.apt:
         name: "{{ item }}"
         state: latest
       with_items:
         - zsh
-      when: ansible_os_family == "Debian"
+        - zsh-antigen
+
+    - name: Copy .zshrc to user
+      ansible.builtin.copy:
+        src: files/zshrc
+        dest: /home/"{{ user }}"/.zshrc
+        mode: '0644'
