@@ -1,21 +1,17 @@
 ---
-- name: Setup Yubikey libs and tools
-  hosts: all
-  gather_facts: true
-  tasks:
-    - name: Install neccessary tools for Yubikey on Debian
-      become: true
-      ansible.builtin.apt:
-        name: "{{ item }}"
-        state: latest
-      with_items:
-        - wget
-        - gnupg2
-        - gnupg-agent
-        - dirmngr
-        - cryptsetup
-        - scdaemon
-        - pcscd
-        - secure-delete
-        - hopenpgp-tools
-        - yubikey-personalization
+- name: Install neccessary tools for Yubikey on Debian
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - wget
+    - gnupg2
+    - gnupg-agent
+    - dirmngr
+    - cryptsetup
+    - scdaemon
+    - pcscd
+    - secure-delete
+    - hopenpgp-tools
+    - yubikey-personalization
