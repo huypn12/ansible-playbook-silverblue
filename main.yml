@@ -1,0 +1,27 @@
+---
+- name: Install dev env
+  hosts: all
+  tasks:
+    - name: Set hostname
+      ansible.builtin.include_tasks: tasks/hostname.yml
+      vars:
+        uid: query('community.general.random_string', length=4, upper=false, numbers=true, special=false)
+        hostname: "debian-{{ uid }}"
+
+    - name: Setup new users
+      ansible.builtin.include_tasks: tasks/users.yml
+
+    - name: Setup dev tools and libs
+      ansible.builtin.include_tasks: tasks/devtools.yml
+
+    - name: Setup virtualization
+      ansible.builtin.include_tasks: tasks/virt.yml
+
+    - name: Setup apps
+      ansible.builtin.include_tasks: tasks/apps.yml
+
+    - name: Setup yubikey
+      ansible.builtin.include_tasks: tasks/yubikey.yml
+
+    - name: Setup shell
+      ansible.builtin.include_tasks: tasks/shell.yml

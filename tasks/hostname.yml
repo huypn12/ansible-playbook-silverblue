@@ -1,9 +1,8 @@
 ---
-- name: Set unique hostname
-  hosts: all
+- name: debug
+  ansible.builtin.debug:
+    vars: hostname
+- name: Set a hostname specifying strategy
   become: true
-  tasks:
-    - name: Set a hostname specifying strategy
-      ansible.builtin.hostname:
-        name: "debian-{{ query('community.general.random_string', length=4, upper=false, numbers=true, special=false) }}"
-        use: systemd
+  ansible.builtin.hostname:
+    name: "{{ hostname }}"

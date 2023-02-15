@@ -1,6 +1,9 @@
-mydc:
-    desktop:
-        ansible_host: 192.168.1.101
+all:
+  hosts:
+    # desktop:
+    #    ansible_host: 192.168.1.101
 
     laptop:
-        ansible_host: 192.168.1.102
+        ansible_host: 192.168.100.247
+        ansible_user: remote_adm
+        ansible_ssh_private_key_file: /home/huypn12/.ssh/remote_adm.ed25519
