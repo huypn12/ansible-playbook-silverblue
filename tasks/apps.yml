@@ -16,4 +16,71 @@
   with_items:
     - fonts-noto
     - fonts-croscore
-  when: ansible_os_family == "Debian"
+
+- name: Install apt https
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - apt-transport-https
+
+- name: Add google repository
+  block:
+    - name: google-chrome |no apt key
+      ansible.builtin.get_url:
+        url: https://dl.google.com/linux/linux_signing_key.pub
+        dest: /etc/apt/trusted.gpg.d/google-chrome.asc
+
+    - name: google-chrome | apt source
+      ansible.builtin.apt_repository:
+        filename: google-chrome
+        repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/google-chrome.asc] http://dl.google.com/linux/chrome/deb/ stable main"
+        state: present
+
+- name: Add MS repository
+  block:
+    - name: google-chrome |no apt key
+      ansible.builtin.get_url:
+        url: https://packages.microsoft.com/keys/microsoft.asc
+        dest: /etc/apt/trusted.gpg.d/microsoft.asc
+
+    - name: google-chrome | apt source
+      ansible.builtin.apt_repository:
+        filename: vscode
+        repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/microsoft.asc] https://packages.microsoft.com/repos/vscode stable main"
+        state: present
+
+- name: Update apt repo data
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install Chrome & vscode
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - code
+    - google-chrome-stable
+
+- name: Install flatpak
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - flatpak
+
+- name: Add the flathub flatpak repository remote to the user installation
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+- name: Install utilities
+  community.general.flatpak:
+    name:
+      - org.telegram.desktop
+      - com.slack.Slack
+      - us.zoom.Zoom
+      - com.discordapp.Discord
+      - com.spotify.Client
+    state: present
