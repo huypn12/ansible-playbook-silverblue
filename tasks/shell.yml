@@ -6,9 +6,3 @@
   with_items:
     - zsh
     - zsh-antigen
-
-- name: Copy .zshrc to user
-  ansible.builtin.copy:
-    src: files/zshrc
-    dest: /home/"{{ user }}"/.zshrc
-    mode: '0644'
