@@ -1,12 +1,16 @@
 ---
 - name: Install dev env
   hosts: all
+  become: true
+  gather_facts: true
   tasks:
     - name: Set hostname
       ansible.builtin.include_tasks: tasks/hostname.yml
       vars:
-        uid: query('community.general.random_string', length=4, upper=false, numbers=true, special=false)
-        hostname: "debian-{{ uid }}"
+        hostname: "debian-{{ query('community.general.random_string', length=4, upper=false, numbers=true, special=false)[0] }}"
+
+    - name: Install zsh
+      ansible.builtin.include_tasks: tasks/shell.yml
 
     - name: Setup new users
       ansible.builtin.include_tasks: tasks/users.yml
@@ -22,6 +26,3 @@
 
     - name: Setup yubikey
       ansible.builtin.include_tasks: tasks/yubikey.yml
-
-    - name: Setup shell
-      ansible.builtin.include_tasks: tasks/shell.yml
