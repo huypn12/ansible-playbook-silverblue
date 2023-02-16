@@ -1,13 +1,22 @@
 ---
-- name: Add user "{{ item }}" of groups "{{ groups }}"
+- name: Add user "{{ item }}"
   ansible.builtin.user:
     name: "{{ item }}"
-    groups: "{{ groups }}"
+    groups:
+      - sudo
     shell: /bin/zsh
-    append: yes
+    state: present
 
 - name: Add authorized key
   ansible.builtin.authorized_key:
     user: "{{ item }}"
     state: present
     key: "{{ lookup('file', 'authorized_keys/' + item) }}"
+
+- name: Copy .zshrc to {{ item }}
+  ansible.builtin.copy:
+    src: files/shell/zshrc
+    dest: /home/{{ item }}/.zshrc
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: '0644'
