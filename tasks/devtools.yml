@@ -1,59 +1,26 @@
 ---
-- name: Install kernel header
-  ansible.builtin.apt:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - linux-headers-generic
-
-- name: Install Python build dependencies
-  ansible.builtin.apt:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - build-essential
-    - libssl-dev
-    - libffi-dev
-    - python3-dev
-    - zlib1g-dev
-    - libbz2-dev
-    - libreadline-dev
-    - libsqlite3-dev
-    - curl
-    - libncursesw5-dev
-    - xz-utils
-    - tk-dev
-    - libxml2-dev
-    - libxmlsec1-dev
-    - liblzma-dev
-
-- name: Install C/C++ development tools
-  ansible.builtin.apt:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - build-essential
-    - autotools-dev
-    - autoconf
-    - cmake
-    - vim
-    - emacs
-    - git
-
 - name: Add LLVM repo
   block:
-    - name: google-chrome |no apt key
+    - name: llvm |no apt key
       ansible.builtin.get_url:
         url: https://apt.llvm.org/llvm-snapshot.gpg.key
         dest: /etc/apt/trusted.gpg.d/llvm-snapshot.gpg.key.asc
 
-    - name: google-chrome | apt source
+    - name: llvm | apt source
       ansible.builtin.apt_repository:
-        filename: vscode
+        filename: llvm
         repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/llvm-snapshot.gpg.key.asc] http://apt.llvm.org/{{ ansible_distribution_release }}/ llvm-toolchain-{{ ansible_distribution_release }} main"
         state: present
 
-    
+- name: Add dotnet repo
+  ansible.builtin.apt:
+    deb: https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb
+    state: present
+
+- name: Update apt repo data
+  ansible.builtin.apt:
+    update_cache: yes
+
 - name: Install LLVM development tools
   ansible.builtin.apt:
     name: "{{ item }}"
@@ -94,16 +61,49 @@
     - maven
     - gradle
 
-- name: Add dotnet repo
-  ansible.builtin.apt:
-    deb: https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb
-    state: present
-
-- name: Update apt repo data
-  ansible.builtin.apt:
-    update_cache: yes
 
 - name: Install Dotnet
   ansible.builtin.apt:
     name: dotnet-sdk-7.0
     state: present
+
+- name: Install kernel header
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - linux-headers-generic
+
+- name: Install Python build dependencies
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - build-essential
+    - libssl-dev
+    - libffi-dev
+    - python3-dev
+    - zlib1g-dev
+    - libbz2-dev
+    - libreadline-dev
+    - libsqlite3-dev
+    - curl
+    - libncursesw5-dev
+    - xz-utils
+    - tk-dev
+    - libxml2-dev
+    - libxmlsec1-dev
+    - liblzma-dev
+
+- name: Install C/C++ development tools
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - build-essential
+    - autotools-dev
+    - autoconf
+    - cmake
+    - vim
+    - emacs
+    - git
