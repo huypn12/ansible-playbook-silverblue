@@ -1,52 +1,52 @@
 ---
-- name: Add LLVM repo
-  block:
-    - name: llvm |no apt key
-      ansible.builtin.get_url:
-        url: https://apt.llvm.org/llvm-snapshot.gpg.key
-        dest: /etc/apt/trusted.gpg.d/llvm-snapshot.gpg.key.asc
+# - name: Add LLVM repo
+#   block:
+#     - name: llvm |no apt key
+#       ansible.builtin.get_url:
+#         url: https://apt.llvm.org/llvm-snapshot.gpg.key
+#         dest: /etc/apt/trusted.gpg.d/llvm-snapshot.gpg.key.asc
 
-    - name: llvm | apt source
-      ansible.builtin.apt_repository:
-        filename: llvm
-        repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/llvm-snapshot.gpg.key.asc] http://apt.llvm.org/{{ ansible_distribution_release }}/ llvm-toolchain-{{ ansible_distribution_release }} main"
-        state: present
+#     - name: llvm | apt source
+#       ansible.builtin.apt_repository:
+#         filename: llvm
+#         repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/llvm-snapshot.gpg.key.asc] http://apt.llvm.org/{{ ansible_distribution_release }}/ llvm-toolchain-{{ ansible_distribution_release }} main"
+#         state: present
 
-- name: Add dotnet repo
-  ansible.builtin.apt:
-    deb: https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb
-    state: present
+# - name: Add dotnet repo
+#   ansible.builtin.apt:
+#     deb: https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb
+#     state: present
 
 - name: Update apt repo data
   ansible.builtin.apt:
     update_cache: yes
 
-- name: Install LLVM development tools
-  ansible.builtin.apt:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-  - clang-format
-  - clang-tidy
-  - clang-tools
-  - clang
-  - clangd
-  - libc++-dev
-  - libc++1
-  - libc++abi-dev
-  - libc++abi1
-  - libclang-dev
-  - libclang1
-  - liblldb-dev
-  - libllvm-ocaml-dev
-  - libomp-dev
-  - libomp5
-  - lld
-  - lldb
-  - llvm-dev
-  - llvm-runtime
-  - llvm
-  - python3-clang
+# - name: Install LLVM development tools
+#   ansible.builtin.apt:
+#     name: "{{ item }}"
+#     state: latest
+#   with_items:
+#   - clang-format
+#   - clang-tidy
+#   - clang-tools
+#   - clang
+#   - clangd
+#   - libc++-dev
+#   - libc++1
+#   - libc++abi-dev
+#   - libc++abi1
+#   - libclang-dev
+#   - libclang1
+#   - liblldb-dev
+#   - libllvm-ocaml-dev
+#   - libomp-dev
+#   - libomp5
+#   - lld
+#   - lldb
+#   - llvm-dev
+#   - llvm-runtime
+#   - llvm
+#   - python3-clang
 
 - name: Install OpenJDK
   ansible.builtin.apt:
@@ -61,11 +61,10 @@
     - maven
     - gradle
 
-
-- name: Install Dotnet
-  ansible.builtin.apt:
-    name: dotnet-sdk-7.0
-    state: present
+# - name: Install Dotnet
+#   ansible.builtin.apt:
+#     name: dotnet-sdk-7.0
+#     state: present
 
 - name: Install kernel header
   ansible.builtin.apt:
