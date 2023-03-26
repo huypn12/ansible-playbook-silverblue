@@ -4,10 +4,10 @@
     name: "{{ item }}"
     state: latest
   with_items:
-    - fcitx
-    - fcitx-unikey
-    - fcitx-rime
-    - fcitx-mozc
+    - fcitx5
+    - fcitx5-unikey
+    - fcitx5-rime
+    - fcitx5-mozc
 
 - name: Install Noto fonts on Debian
   ansible.builtin.apt:
