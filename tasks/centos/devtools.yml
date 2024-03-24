@@ -1,0 +1,33 @@
+---
+## https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/developing_c_and_cpp_applications_in_rhel_9/setting-up-a-development-workstation_developing-applications
+- become: true
+- name: Install the 'Development tools' package group
+  ansible.builtin.dnf:
+    name: "@Development tools"
+    state: latest
+
+- name: Install other development tools
+  ansible.builtin.dnf:
+    name:
+      - gdb
+      - valgrind
+      - systemtap
+      - ltrace
+      - strace
+      - dnf-utils
+      - cmake
+      - perf papi pcp-zeroconf valgrind strace sysstat systemtap
+    state: latest
+
+- name: Install the latest version LLVM toolchain
+  ansible.builtin.dnf:
+    name:
+      - llvm-toolset
+      - clang-tools-extra
+    state: latest
+
+- name: Install the latest version golang
+  ansible.builtin.dnf:
+    name:
+      - golang
+    state: latest
