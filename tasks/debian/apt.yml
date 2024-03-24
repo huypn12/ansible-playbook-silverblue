@@ -1,0 +1,63 @@
+---
+- name: Update apt repo data
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install apt https
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - apt-transport-https
+
+## Typefaces
+- name: Install Fcitx on Debian
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - fcitx5
+    - fcitx5-unikey
+    - fcitx5-rime
+    - fcitx5-mozc
+
+- name: Install Noto fonts on Debian
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - fonts-noto
+    - fonts-croscore
+
+## Flatpak as the main installation source for apps
+- name: Install flatpak
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - flatpak
+
+## Yubikey support
+- name: Install neccessary tools for Yubikey on Debian
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - wget
+    - gnupg2
+    - gnupg-agent
+    - dirmngr
+    - cryptsetup
+    - scdaemon
+    - pcscd
+    - secure-delete
+    - yubikey-personalization
+
+- name: Install zsh
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - zsh
+    - zsh-antigen

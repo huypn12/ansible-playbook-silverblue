@@ -1,0 +1,30 @@
+---
+## Virtualization
+- become: true
+- name: Install libvirt
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - qemu-kvm
+    - libvirt-clients
+    - libvirt-daemon-system
+    - libvirt-daemon
+    - bridge-utils
+    - virtinst
+    - virt-manager
+
+- name: Install podman
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - podman
+
+- name: Enable libvirtd
+  become: true
+  ansible.builtin.systemd:
+    name: libvirtd
+    state: started
+    enabled: true

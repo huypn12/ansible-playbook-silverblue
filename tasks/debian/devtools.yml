@@ -1,0 +1,97 @@
+---
+## Development tools
+- become: true
+- name: Add dotnet repo
+  ansible.builtin.apt:
+    deb: https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb
+    state: present
+
+- name: Update apt repo data
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install Dotnet
+  ansible.builtin.apt:
+    name: dotnet-sdk-8.0
+    state: present
+
+- name: Install kernel header
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - linux-headers-generic
+
+- name: Install C/C++ development tools
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - build-essential
+    - autotools-dev
+    - autoconf
+    - cmake
+    - vim
+    - git
+
+- name: Install LLVM toolchain
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - clang-format
+    - clang-tidy
+    - clang-tools
+    - clang
+    - clangd
+    - libc++-dev
+    - libc++1
+    - libc++abi-dev
+    - libc++abi1
+    - libclang-dev
+    - libclang1
+    - liblldb-dev
+    - libllvm-ocaml-dev
+    - libomp-dev
+    - libomp5
+    - lld
+    - lldb
+    - llvm-dev
+    - llvm-runtime
+    - llvm
+    - python3-clang
+
+- name: Install Python build dependencies
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - libssl-dev
+    - libffi-dev
+    - python3-dev
+    - zlib1g-dev
+    - libbz2-dev
+    - libreadline-dev
+    - libsqlite3-dev
+    - curl
+    - libncursesw5-dev
+    - xz-utils
+    - tk-dev
+    - libxml2-dev
+    - libxmlsec1-dev
+    - liblzma-dev
+
+- name: Install OpenJDK
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - openjdk-17-jdk
+    - openjdk-17-doc
+    - openjdk-17-demo
+    - openjdk-17-dbg
+    - openjdk-17-source
+    - maven
+    - gradle
