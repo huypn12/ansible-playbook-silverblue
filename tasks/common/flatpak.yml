@@ -1,0 +1,24 @@
+---
+- name: Add the flathub flatpak repository remote to the user installation
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+- name: Install Flatpak apps
+  community.general.flatpak:
+    name:
+      - com.google.Chrome
+      - com.visualstudio.code
+      - com.bitwarden.desktop
+      - us.zoom.Zoom
+      - org.telegram.desktop
+      - org.videolan.VLC
+      - org.gimp.GIMP
+      - org.mozilla.Thunderbird
+      - com.spotify.Client
+      - md.obsidian.Obsidian
+      - io.dbeaver.DBeaverCommunity
+    remote: flathub
+    state: present
+    method: user
