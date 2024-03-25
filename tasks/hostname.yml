@@ -1,8 +1,0 @@
----
-- name: debug
-  ansible.builtin.debug:
-    var: hostname
-  
-- name: Set a hostname specifying strategy
-  ansible.builtin.hostname:
-    name: "{{ hostname }}"

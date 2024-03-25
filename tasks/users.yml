@@ -1,5 +1,0 @@
----
-- name: Add new users
-  include_tasks: user_task.yml
-  loop:
-    - huypn12

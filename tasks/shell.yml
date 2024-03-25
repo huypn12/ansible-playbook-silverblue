@@ -1,8 +1,0 @@
----
-- name: Install zsh on Debian
-  ansible.builtin.apt:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - zsh
-    - zsh-antigen
