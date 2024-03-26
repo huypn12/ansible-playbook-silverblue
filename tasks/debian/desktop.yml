@@ -1,0 +1,54 @@
+---
+- name:
+- tasks:
+    - name: Update apt repo data
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Install apt https
+      ansible.builtin.apt:
+        name:
+          - apt-transport-https
+        state: latest
+
+    - name: Install Fcitx5 with VI/ZH/JA support
+      ansible.builtin.apt:
+        name:
+          - fcitx5
+          - fcitx5-unikey
+          - fcitx5-rime
+          - fcitx5-mozc
+        state: latest
+
+    - name: Install Noto fonts on Debian
+      ansible.builtin.apt:
+        name:
+          - fonts-noto
+          - fonts-croscore
+        state: latest
+
+    - name: Install flatpak
+      ansible.builtin.apt:
+        name:
+          - flatpak
+        state: latest
+
+    - name: Install neccessary tools for Yubikey on Debian
+      ansible.builtin.apt:
+        name:
+          - wget
+          - gnupg2
+          - gnupg-agent
+          - dirmngr
+          - cryptsetup
+          - scdaemon
+          - pcscd
+          - secure-delete
+          - yubikey-personalization
+        state: latest
+
+    - name: Install zsh
+      ansible.builtin.apt:
+        name:
+          - zsh
+        state: latest
