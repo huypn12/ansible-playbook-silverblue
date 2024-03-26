@@ -1,0 +1,11 @@
+---
+- name: Install desktop tools for workstation usecase
+- become: true
+- tasks:
+    - name: Install the container tools
+      ansible.builtin.dnf:
+        name:
+          - distrobox
+          - lxc
+          - lxc-templates
+        state: latest

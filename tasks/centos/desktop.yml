@@ -1,0 +1,22 @@
+---
+- name: Install desktop tools for workstation usecase
+- become: true
+- tasks:
+    - name: Install the fcitx5 input method
+      ansible.builtin.dnf:
+        name:
+          - fcitx5
+          - fcitx5-autostart
+          - fcitx5-mozc
+          - fcitx5-rime
+          - fcitx5-unikey
+        state: latest
+
+    - name: Install the yubikey support
+      ansible.builtin.dnf:
+        name:
+          - pam-u2f
+          - pam_yubico
+          - pamu2fcfg
+          - yubikey-manager
+        state: latest
