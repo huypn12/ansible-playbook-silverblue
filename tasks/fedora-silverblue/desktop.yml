@@ -1,5 +1,5 @@
 ---
-- name: Install overlay package
+- name: Install all overlay packages at once to avoid creating different snapshots
   become: yes
   community.general.rpm_ostree_pkg:
     name:
