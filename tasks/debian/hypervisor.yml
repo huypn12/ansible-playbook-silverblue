@@ -1,7 +1,8 @@
 ---
 - name: Install KVM virtualization
-- become: true
-- tasks:
+  become: true
+  become_method: sudo
+  tasks:
     - name: Install libvirt
       ansible.builtin.apt:
         name: "{{ item }}"

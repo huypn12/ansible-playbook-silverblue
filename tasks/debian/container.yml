@@ -1,15 +1,20 @@
-- name: Install podman
-  ansible.builtin.apt:
-    name:
-      - podman
-    state: latest
+---
+- name: Install container tools & libraries
+  become: true
+  become_method: sudo
+  tasks:
+    - name: Install podman
+      ansible.builtin.apt:
+        name:
+          - podman
+        state: latest
 
-- name: Install lxc
-  ansible.builtin.apt:
-    name:
-      - lxc
-      - libvirt0
-      - libpam-cgfs
-      - bridge-utils
-      - uidmap
-    state: latest
+    - name: Install lxc
+      ansible.builtin.apt:
+        name:
+          - lxc
+          - libvirt0
+          - libpam-cgfs
+          - bridge-utils
+          - uidmap
+        state: latest

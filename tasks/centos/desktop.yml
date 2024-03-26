@@ -1,7 +1,8 @@
 ---
 - name: Install desktop tools for workstation usecase
-- become: true
-- tasks:
+  become: true
+  become_method: sudo
+  tasks:
     - name: Install the fcitx5 input method
       ansible.builtin.dnf:
         name:

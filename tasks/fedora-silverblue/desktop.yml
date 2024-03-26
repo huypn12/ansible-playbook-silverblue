@@ -1,29 +1,33 @@
 ---
-- name: Install all overlay packages at once to avoid creating different snapshots
+- name: install workstation desktop packages on silverblue
+  hosts: localhost
   become: yes
-  community.general.rpm_ostree_pkg:
-    name:
-      - fcitx5
-      - fcitx5-autostart
-      - fcitx5-mozc
-      - fcitx5-rime
-      - fcitx5-unikey
-      - distrobox
-      - libvirt-daemon
-      - libvirt-daemon-config-network
-      - libvirt-daemon-driver-interface
-      - libvirt-daemon-driver-network
-      - libvirt-daemon-driver-nwfilter
-      - libvirt-daemon-driver-qemu
-      - libvirt-daemon-driver-secret
-      - libvirt-daemon-driver-storage-core
-      - qemu-kvm
-      - virt-manager
-      - lxc
-      - lxc-templates
-      - pam-u2f
-      - pam_yubico
-      - pamu2fcfg
-      - yubikey-manager
-      - zsh
-    state: present
+  become_method: sudo
+  tasks:
+    - name: Install all overlay packages at once to avoid creating different snapshots
+      community.general.rpm_ostree_pkg:
+        name:
+          - fcitx5
+          - fcitx5-autostart
+          - fcitx5-mozc
+          - fcitx5-rime
+          - fcitx5-unikey
+          - distrobox
+          - libvirt-daemon
+          - libvirt-daemon-config-network
+          - libvirt-daemon-driver-interface
+          - libvirt-daemon-driver-network
+          - libvirt-daemon-driver-nwfilter
+          - libvirt-daemon-driver-qemu
+          - libvirt-daemon-driver-secret
+          - libvirt-daemon-driver-storage-core
+          - qemu-kvm
+          - virt-manager
+          - lxc
+          - lxc-templates
+          - pam-u2f
+          - pam_yubico
+          - pamu2fcfg
+          - yubikey-manager
+          - zsh
+        state: present

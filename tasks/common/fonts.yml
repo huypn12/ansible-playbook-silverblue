@@ -1,21 +1,24 @@
 ---
-# https://dev.to/waylonwalker/installing-system-nerd-fonts-with-ansible-35kh
-- name: ensure fonts directory
-  file:
-    path: "{{ lookup('env', 'HOME') }}/.local/share/fonts/ttc-ioseka"
-    state: directory
+- name: Install fonts
+  become: false
+  tasks:
+    # https://dev.to/waylonwalker/installing-system-nerd-fonts-with-ansible-35kh
+    - name: ensure fonts directory
+      file:
+        path: "{{ lookup('env', 'HOME') }}/.local/share/fonts/ttc-ioseka"
+        state: directory
 
-- name: Iosevka exists
-  shell: "ls {{ lookup('env', 'HOME') }}/.local/share/fonts/ttc-ioseka*"
-  register: iosevka_exists
-  ignore_errors: yes
+    - name: Iosevka exists
+      shell: "ls {{ lookup('env', 'HOME') }}/.local/share/fonts/ttc-ioseka*"
+      register: iosevka_exists
+      ignore_errors: yes
 
-- name: Download Iosevka
-  when: iosevka_exists is failed
-  ansible.builtin.unarchive:
-    src: https://github.com/be5invis/Iosevka/releases/download/v29.0.3/PkgTTC-Iosevka-29.0.3.zip
-    dest: "{{ lookup('env', 'HOME') }}/.local/share/fonts/ttc-ioseka"
-    remote_src: yes
+    - name: Download Iosevka
+      when: iosevka_exists is failed
+      ansible.builtin.unarchive:
+        src: https://github.com/be5invis/Iosevka/releases/download/v29.0.3/PkgTTC-Iosevka-29.0.3.zip
+        dest: "{{ lookup('env', 'HOME') }}/.local/share/fonts/ttc-ioseka"
+        remote_src: yes
 
-- name: Refresh font cache
-  shell: "fc-cache -f"
+    - name: Refresh font cache
+      shell: "fc-cache -f"

@@ -1,6 +1,8 @@
 ---
-- name:
-- tasks:
+- name: Install desktop tool
+  become: true
+  become_method: sudo
+  tasks:tasks:
     - name: Update apt repo data
       ansible.builtin.apt:
         update_cache: yes

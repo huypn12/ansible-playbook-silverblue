@@ -1,8 +1,8 @@
 ---
 - name: Install development tools and libraries for C++
-- become: true
-- become_method: sudo
-- tasks:
+  become: true
+  become_method: sudo
+  tasks:
     ## https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/developing_c_and_cpp_applications_in_rhel_9/setting-up-a-development-workstation_developing-applications
     - name: Install the 'Development tools' package group
       ansible.builtin.dnf:
