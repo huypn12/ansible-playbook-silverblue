@@ -4,6 +4,8 @@
   become: yes
   become_method: sudo
   tasks:
+    - name: check if the distribution is immutable
+      
     - name: Install all overlay packages at once to avoid creating different snapshots
       community.general.rpm_ostree_pkg:
         name:
