@@ -13,4 +13,6 @@ conda install -y ansible
 wget https://github.com/huypn12/huypn-ansible-laptop/archive/refs/heads/main.zip
 unzip main.zip
 
+pushd main
+
 popd

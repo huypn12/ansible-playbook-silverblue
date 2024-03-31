@@ -19,7 +19,13 @@
           - strace
           - dnf-utils
           - cmake
-          - perf papi pcp-zeroconf valgrind strace sysstat systemtap
+          - perf
+          - papi
+          - pcp-zeroconf
+          - valgrind
+          - strace
+          - sysstat
+          - systemtap
         state: latest
 
     - name: Install the latest version LLVM toolchain
