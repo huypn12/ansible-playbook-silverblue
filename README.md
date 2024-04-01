@@ -1,19 +1,15 @@
-# Ansible script to automatize initial setup for new laptop
-Supported OS:
-- CentOS 9 Stream
-- Debian
-- Fedora Silverblue
+# Ansible script to automatize initial setup for Fedora Silverblue
+Inspired by:
+https://github.com/j1mc/ansible-silverblue/blob/main/roles/flatpaks/README.md
 
-## Container
-Install support for LXC and podman
+## Layered packages:
+Install packages for:
+- Libvirt
+- LXC
+- distrobox
+- Yubikey support 
 
-## Development tools
-C/C++ compilers, CMake, OpenJDK LTS, Go, dotnet
-
-## Gnome desktop
-Fcitx5
-
-## Hypervisor
-Libvirt/QEMU
+Remove:
+- Firefox
 
 

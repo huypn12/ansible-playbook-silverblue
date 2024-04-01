@@ -8,7 +8,6 @@
       - fcitx5-mozc
       - fcitx5-rime
       - fcitx5-unikey
-      - distrobox
       - libvirt-daemon
       - libvirt-daemon-config-network
       - libvirt-daemon-driver-interface
@@ -21,9 +20,11 @@
       - virt-manager
       - lxc
       - lxc-templates
+      - distrobox
       - pam-u2f
       - pam_yubico
       - pamu2fcfg
       - yubikey-manager
+      - vim
       - zsh
     state: present
