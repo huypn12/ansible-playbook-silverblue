@@ -5,17 +5,17 @@
 
 - name: Install desired applications as layered packages
   community.general.rpm_ostree_pkg:
-    name: "{{ item }}"
+    name: "{{ layered_package_install }}"
     state: present
   become: yes
   become_method: sudo
-  loop: "{{ layered_package_install }}"
 
 - name: Remove applications from the base OS
-  ansible.builtin.command: rpm-ostree override remove {{ item }}
+  community.general.rpm_ostree_pkg:
+    name: "{{ base_package_remove }}"
+    state: absent
   become: yes
   become_method: sudo
-  loop: "{{ base_package_remove }}"
 
 - name: Make sure base OS is upgraded to the latest
   shell: rpm-ostree upgrade
@@ -28,5 +28,6 @@
   reboot:
     reboot_timeout: 300
   become: yes
+  become_method: sudo
   when:
     - booted.stdout == "false"
