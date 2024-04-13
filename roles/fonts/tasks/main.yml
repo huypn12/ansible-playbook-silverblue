@@ -14,6 +14,14 @@
     owner: "{{ ansible_env.USER }}"
     group: "{{ ansible_env.USER }}"
 
+- name: Create font dirs and set ownership
+  ansible.builtin.file:
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts/{{ item.name }}"
+    state: directory
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+  loop: "{{ fonts }}"
+
 - name: Extract font packages
   ansible.builtin.unarchive:
     src: "/tmp/{{ item.name}}.pkg"
