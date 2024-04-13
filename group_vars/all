@@ -1,0 +1,59 @@
+# The 'layered_packages' role #
+###############################
+layered_package_install:
+  - fcitx5
+  - fcitx5-autostart
+  - fcitx5-mozc
+  - fcitx5-rime
+  - fcitx5-unikey
+  - libvirt-daemon
+  - libvirt-daemon-config-network
+  - libvirt-daemon-driver-interface
+  - libvirt-daemon-driver-network
+  - libvirt-daemon-driver-nwfilter
+  - libvirt-daemon-driver-qemu
+  - libvirt-daemon-driver-secret
+  - libvirt-daemon-driver-storage-core
+  - qemu-kvm
+  - virt-manager
+  - lxc
+  - lxc-templates
+  - distrobox
+  - pam-u2f
+  - pam_yubico
+  - pamu2fcfg
+  - yubikey-manager
+  - vim
+  - zsh
+  - net-tools
+
+base_package_remove:
+  - firefox
+  - firefox-lang-packs
+
+# The 'flatpak' role #
+######################
+flatpak_remote_install:
+  - { name: 'flathub', url: 'https://dl.flathub.org/repo/flathub.flatpakrepo' }                 # Flathub
+  - { name: 'fedora', url: 'oci+https://registry.fedoraproject.org' }                           # Fedora
+
+flatpak_package_install:
+  - { remote: 'flathub', package: 'com.google.Chrome' }
+  - { remote: 'flathub', package: 'org.mozilla.firefox' }
+  - { remote: 'flathub', package: 'org.mozilla.Thunderbird' }
+  - { remote: 'flathub', package: 'com.bitwarden.desktop' }
+  - { remote: 'flathub', package: 'org.remmina.Remmina' }
+  - { remote: 'flathub', package: 'us.zoom.Zoom' }
+  - { remote: 'flathub', package: 'org.telegram.desktop' }
+  - { remote: 'flathub', package: 'org.videolan.VLC' }
+  - { remote: 'flathub', package: 'org.gimp.GIMP' }
+  - { remote: 'flathub', package: 'com.spotify.Client' }
+  - { remote: 'flathub', package: 'md.obsidian.Obsidian' }
+  - { remote: 'flathub', package: 'com.visualstudio.code' }
+  - { remote: 'flathub', package: 'io.dbeaver.DBeaverCommunity' }
+
+# The 'font' role #
+######################
+fonts:
+  - { name: 'iosevka', url: 'https://github.com/be5invis/Iosevka/releases/download/v29.2.0/PkgTTC-Iosevka-29.2.0.zip', sha256sum: 'c9bf8e814d5876933cb2491b18ab0e2712208ff249582c24446807cd55ccc4d6'}
+  - { name: 'iosevka-slab', url: 'https://github.com/be5invis/Iosevka/releases/download/v29.2.0/PkgTTC-IosevkaSlab-29.2.0.zip', sha256sum: '146cd44eb9b61d94e089f632d17075a1858724365335ec999029a680e5499164'}
