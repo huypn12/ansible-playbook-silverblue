@@ -1,7 +1,8 @@
 ---
+
 - hosts: all
   roles:
-    - { role: flatpaks }
+    - { role: flatpak }
     - { role: fonts }
-    - { role: layered_packages }
     - { role: zsh }
+    - { role: layered }
