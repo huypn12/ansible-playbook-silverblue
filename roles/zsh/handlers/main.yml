@@ -1,2 +1,17 @@
 ---
-# handlers file for zsh
+- name: Download antigen
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/zsh-users/antigen/master/bin/antigen.zsh
+    dest: "{{ ansible_env.HOME }}/.local/bin/antigen.zsh"
+    mode: '0600'
+
+- name: Copy .zshrc
+  ansible.builtin.copy:
+    src: zshrc
+    dest: "{{ ansible_env.HOME }}/.zshrc"
+  
+- name: Copy powerlevel10k config
+  ansible.builtin.copy:
+    src: p10k.zsh
+    dest: "{{ ansible_env.HOME }}/.p10k.zsh"
+
