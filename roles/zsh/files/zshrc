@@ -14,5 +14,8 @@ antigen theme romkatv/powerlevel10k
 
 antigen apply
 
-# Custom
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Custom aliases
 
