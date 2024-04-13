@@ -1,3 +1,33 @@
 ---
 # tasks file for fonts
-# curl -s 'https://api.github.com/repos/be5invis/Iosevka/releases/latest' | jq -r ".assets[] | .browser_download_url" | grep PkgTTC-Iosevka | xargs -n 1 curl -L -O --fail --silent --show-error
+- name: Download font packages
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "/tmp/{{ item.name}}.pkg"
+    checksum: sha256:"{{ item.sha256sum }}"
+  loop: "{{ fonts }}"
+
+- name: Ensure the user has a '~/.local/share/fonts' directory  
+  ansible.builtin.file:
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts"
+    state: directory
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+
+- name: Extract font packages
+  ansible.builtin.unarchive:
+    src: "/tmp/{{ item.name}}.pkg"
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts/{{ item.name }}"
+  loop: "{{ fonts }}"
+
+- name: Set fonts directory ownership
+  ansible.builtin.file:
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts/{{ item.name }}"
+    state: directory
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+  loop: "{{ fonts }}"
+
+- name: Update font cache
+  ansible.builtin.command: fc-cache -fv
+
