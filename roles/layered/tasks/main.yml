@@ -11,11 +11,10 @@
   become_method: sudo
 
 - name: Remove applications from the base OS
-  community.general.rpm_ostree_pkg:
-    name: "{{ base_package_remove }}"
-    state: absent
+  ansible.builtin.command: rpm-ostree override remove {{ item }}
   become: yes
   become_method: sudo
+  loop: "{{ base_package_remove }}"
 
 - name: Make sure base OS is upgraded to the latest
   shell: rpm-ostree upgrade
