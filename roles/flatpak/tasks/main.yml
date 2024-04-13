@@ -1,25 +1,20 @@
 ---
-- name: Add the flathub flatpak repository remote to the user installation
+# tasks file for flatpak
+- name: Add Flatpak remotes
   community.general.flatpak_remote:
-    name: flathub
+    name: "{{ item.name }}"
     state: present
-    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
     method: user
+    flatpakrepo_url: "{{ item.url }}"
+  loop: "{{ flatpak_remote_install }}"
 
-- name: Install Flatpak apps
+- name: Update metadata to show newly-available software
+  ansible.builtin.command: flatpak update --appstream
+
+- name: Install Flatpak packages
   community.general.flatpak:
-    name:
-      - com.google.Chrome
-      - com.visualstudio.code
-      - com.bitwarden.desktop
-      - us.zoom.Zoom
-      - org.telegram.desktop
-      - org.videolan.VLC
-      - org.gimp.GIMP
-      - org.mozilla.Thunderbird
-      - com.spotify.Client
-      - md.obsidian.Obsidian
-      - io.dbeaver.DBeaverCommunity
-    remote: flathub
+    name: "{{ item.package }}"
     state: present
     method: user
+    remote: "{{ item.remote }}"
+  loop: "{{ flatpak_package_install }}"
