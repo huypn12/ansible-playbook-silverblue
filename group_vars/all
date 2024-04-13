@@ -28,8 +28,8 @@ layered_package_install:
   - net-tools
 
 base_package_remove:
+  - firefox-langpacks
   - firefox
-  - firefox-lang-packs
 
 # The 'flatpak' role #
 ######################
