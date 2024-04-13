@@ -1,30 +1,32 @@
 ---
 # tasks file for layered
-- name: Install all overlay packages at once to avoid creating different snapshots
+- name: Cancel current rpm-ostree process
+  ansible.builtin.command: rpm-ostree cancel
+
+- name: Install desired applications as layered packages
   community.general.rpm_ostree_pkg:
-    name:
-      - fcitx5
-      - fcitx5-autostart
-      - fcitx5-mozc
-      - fcitx5-rime
-      - fcitx5-unikey
-      - libvirt-daemon
-      - libvirt-daemon-config-network
-      - libvirt-daemon-driver-interface
-      - libvirt-daemon-driver-network
-      - libvirt-daemon-driver-nwfilter
-      - libvirt-daemon-driver-qemu
-      - libvirt-daemon-driver-secret
-      - libvirt-daemon-driver-storage-core
-      - qemu-kvm
-      - virt-manager
-      - lxc
-      - lxc-templates
-      - distrobox
-      - pam-u2f
-      - pam_yubico
-      - pamu2fcfg
-      - yubikey-manager
-      - vim
-      - zsh
+    name: "{{ item }}"
     state: present
+  become: yes
+  become_method: sudo
+  loop: "{{ layered_package_install }}"
+
+- name: Remove applications from the base OS
+  ansible.builtin.command: rpm-ostree override remove {{ item }}
+  become: yes
+  become_method: sudo
+  loop: "{{ base_package_remove }}"
+
+- name: Make sure base OS is upgraded to the latest
+  shell: rpm-ostree upgrade
+
+- name: Query whether booted RPM-OSTree deployment is first deployment
+  shell: rpm-ostree status --json | jq -r .deployments[0].booted
+  register: booted
+
+- name: Reboot if new deployement is ready.
+  reboot:
+    reboot_timeout: 300
+  become: yes
+  when:
+    - booted.stdout == "false"
